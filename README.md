@@ -37,3 +37,10 @@ e77205a7ca2d5f6cec509c324cd0f231c47367df file2#2 0x100000000+200000000
 e4e8a67da61d7ae1e22fbfeec7583fcee1e085b0 file2#3 0x100000000+300000000
 2b8b1cd4f1ccdad4331f6271dc15a1a58819d7e5 file1#4 0x100000000+400000000
 ```
+
+## Sort the hashes
+
+```text
+~$ sort -Vk 2 CHUNKSUMS | sponge CHUNKSUMS
+~$ sort -Vk 2 -o CHUNKSUMS CHUNKSUMS
+```
