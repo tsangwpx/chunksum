@@ -152,12 +152,11 @@ async def main():
     # Seem that ThreadPoolExecutor is good enough
     # ProcessPoolExecutor probably bounded by IO
     with concurrent.futures.ThreadPoolExecutor(ns.threads) as pool:
-        # with concurrent.futures.ThreadPoolExecutor(8) as pool:
         def generator():
-            nonlocal path, entry, chunk_id
-            for path, entry in entries.items():
-                for chunk_id in range(entry.nchunks):
-                    yield path, chunk_id
+            """Schedule tasks by hashing different file concurrently"""
+            for path_, entry_ in entries.items():
+                for chunk_id_ in range(entry_.nchunks):
+                    yield path_, chunk_id_
 
         for path, chunk_id in sorted(generator(), key=lambda s: s[::-1]):
             entry = entries.get(path)
